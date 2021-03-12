@@ -8,17 +8,22 @@
 #' check_lat_version()
 #' }
 check_lat_version <- function() {
-
-  tryCatch(
-    expr = {
-      message(usethis:::check_branch_pushed())
-      usethis::ui_done("Remote has the latest commit")
-      return(invisible(TRUE))
-    },
-    error = function(e){
-      usethis::ui_oops('Remote does not have the latest commit')
+    if (!gert::git_branch() %in% c("main", "master")) {
+      usethis::ui_oops("Not on main/master branch. Skipping check \\
+                      on upstream remote.")
       return(invisible(FALSE))
     }
-  )
+    res <- purrr::safely(usethis:::check_branch_pushed)()
+    if (is.null(res$error)) {
+      usethis::ui_done("Remote has the latest commit")
+      return(invisible(TRUE))
+    } else {
+      usethis::ui_oops("Remote does not have the latest commit")
+      return(invisible(FALSE))
+    }
 }
+
+
+
+
 
