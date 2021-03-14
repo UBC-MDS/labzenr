@@ -61,28 +61,38 @@ purrr
 
 In order to show the usage of our package, we provided two dummy labs, one [Rmarkdown lab](https://github.com/UBC-MDS/labzenr/tree/master/inst/extdata/dummylab.Rmd) and one [Jupyter notebook](https://github.com/UBC-MDS/labzenr/tree/master/inst/extdata/dummylab.ipynb).
 
-```r
->>> library(labzenr)
-# for jupyter notebook:
->>> df, tab = count_points("data-raw/dummylab.ipynb")
->>> print(df)
->>> print(tab)
+Load the package labzenr
 
-# for Rmarkdown:
->>> df, tab = count_points("data-raw/dummylab.Rmd")
->>> print(df)
->>> print(tab)
+```r
+library(labzenr)
 ```
 
- This will return a tuple of DataFrames. The first Dataframe is a section-by-section overview of points available. The second Dataframe is a cross table summarising the number of optional, required, and total points per lab.
+# Path to the dummy python notebook
 
- To check the lab mechanics run the following R commands:
+```r
+notebook_r <- system.file("extdata", "dummylab.rmd", package = "labzenr")
+notebook_py <- system.file("extdata", "dummylab.ipynb", package = "labzenr")
+```
+
+The following code chunk returns two DataFrame. The first one (`extracted_points`) is a section-by-section overview of points available. The second Dataframe (`total_points`) is a cross table summarising the number of optional, required, and total points per lab.
+
+```r
+extracted_points  <- count_points(notebook_py)
+total_pointsis  <- extract_points(notebook_py)
+extracted_points
+total_points
+```
+
+To check the mechanics of your MDS labs, navigate to the root of your MDS lab Git repository and run the following code. 
 
 ```r
 check_mechanics()
 ```
 
-check_mechanics() - This will perform the checks on your current working directory. It checks that you have a Github repo link, that you have pushed your latest commit, and that you have at least three commit messages authored by you in your history.
+`check_mechanics` perform the following tests on your current Git repository:
+Check that you have included a Github repo link;
+Check that you have pushed the latest version; and
+Check that you have at least three commits.
 
 ## Code of Conduct
 
