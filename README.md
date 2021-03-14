@@ -90,9 +90,9 @@ check_mechanics()
 ```
 
 `check_mechanics` perform the following tests on your current Git repository:
-Check that you have included a Github repo link;
-Check that you have pushed the latest version; and
-Check that you have at least three commits.
+- Check that you have included a Github repo link;
+- Check that you have pushed the latest version; and
+- Check that you have at least three commits.
 
 ## Code of Conduct
 
