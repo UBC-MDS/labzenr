@@ -5,13 +5,13 @@
 [![Project Status: Concept – Minimal or no implementation has been done yet](https://www.repostatus.org/badges/latest/concept.svg)](https://www.repostatus.org/#concept)
 <!-- badges: end -->
 
-`labzen` is a R package that adds more [zen](https://en.wikipedia.org/wiki/Zen) to your student experience of working on [MDS](https://masterdatascience.ubc.ca/) labs. It lets you manage common tasks such as counting total marks in an assigment, and performs common checks for mechanics in your iPython notebooks and R markdown assignments.
+`labzenr` is a R package that adds more [zen](https://en.wikipedia.org/wiki/Zen) to your student experience of working on [MDS](https://masterdatascience.ubc.ca/) labs. It lets you manage common tasks such as counting total marks in an assigment, and performs common checks for mechanics in your iPython notebooks and R markdown assignments.
 
 ## Features
 
-**labzen** helps members of the [UBC Master of Data Science (MDS)](https://masterdatascience.ubc.ca/) manage lab assignments written in iPython notebooks and R markdown. The package saves precious student time by automating common tasks such as counting up total marks in a lab assignment, and performing common mechanical checks that can-- if overlooked-- lose a student easy marks.
+**labzenr** helps members of the [UBC Master of Data Science (MDS)](https://masterdatascience.ubc.ca/) manage lab assignments written in iPython notebooks and R markdown. The package saves precious student time by automating common tasks such as counting up total marks in a lab assignment, and performing common mechanical checks that can-- if overlooked-- lose a student easy marks.
 
-The package is currently under development, but will include the following functions:
+The package has the following functions:
 
 - **Function 1**: The internal `parse_lab()` function will take an MDS .ipynb or .Rmd lab and return its markdown contents as a list/vector of strings. The function will scrub out yaml, code blocks, and all other metadata.
 
@@ -37,14 +37,59 @@ install.packages("devtools")
 devtools::install_github("UBC-MDS/labzenr")
 ```
 
-## Example
+## Dependencies
 
-This is a basic example which shows you how to solve a common problem:
-
-``` r
-library(labzenr)
-## To be written
+```r
+fs
+stringi
+usethis
+gert
+magrittr
+janitor
+dplyr
+tibble
+tidyr
+checkmate
+credentials
+jsonlite
+stringr
+rlang
+purrr
 ```
+
+## Usage
+
+In order to show the usage of our package, we provided two dummy labs, one [Rmarkdown lab](https://github.com/UBC-MDS/labzenr/tree/master/inst/extdata/dummylab.Rmd) and one [Jupyter notebook](https://github.com/UBC-MDS/labzenr/tree/master/inst/extdata/dummylab.ipynb).
+
+```r
+>>> library(labzenr)
+# for jupyter notebook:
+>>> df, tab = count_points("data-raw/dummylab.ipynb")
+>>> print(df)
+>>> print(tab)
+
+# for Rmarkdown:
+>>> df, tab = count_points("data-raw/dummylab.Rmd")
+>>> print(df)
+>>> print(tab)
+```
+
+ This will return a tuple of DataFrames. The first Dataframe is a section-by-section overview of points available. The second Dataframe is a cross table summarising the number of optional, required, and total points per lab.
+
+ To check the lab mechanics run the following R commands:
+
+```r
+check_mechanics()
+```
+
+check_mechanics() - This will perform the checks on your current working directory. It checks that you have a Github repo link, that you have pushed your latest commit, and that you have at least three commit messages authored by you in your history.
+
 ## Code of Conduct
 
 Please note that the labzenr project is released with a [Contributor Code of Conduct](https://contributor-covenant.org/version/2/0/CODE_OF_CONDUCT.html). By contributing to this project, you agree to abide by its terms.
+
+## Contributors
+
+This package is authored by Sukhdeep Kaur, Kamal Moravej Jahromi, and Rafael Pilliard-Hellwig as part of an academic assignment in the UBC MDS program. For a full list of contributors, please see the [contributors tab](https://github.com/UBC-MDS/labzen/graphs/contributors).
+
+We warmly welcome and recognize contributions from the community at large. If you wish to participate, please review our [contributing guidelines](CONTRIBUTING.rst) and familiarize yourself with [Github Flow](https://blog.programster.org/git-workflows).
