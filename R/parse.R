@@ -6,6 +6,8 @@
 #'
 #' @return A character vector where each element is the content of one markdown
 #'   cell.
+#'
+#' @importFrom rlang %||%
 #' @export
 #'
 #' @examples
@@ -18,13 +20,11 @@
 #' parse_lab(notebook)
 #'
 parse_lab <- function(notebook = NULL) {
-  # Call for find_assignment if the user did not defined notebook
-  if (is.null(notebook)) {
-    notebook <- find_assignment()
-  }
+  # find_assignment if the user did not define the notebook path
+  notebook <- notebook %||% find_assignment()
 
   # Check whether the file path is string
-  if (!is.character(notebook)) {
+  if (!inherits(notebook, "character")) {
     msg <- "Error. The file path should be string "
     stop(msg)
   }
