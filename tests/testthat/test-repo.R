@@ -31,18 +31,17 @@ git_commit(
   repo = repo
 )
 
-# Check the log
-git_log(repo = repo)
 
+# set the main/master branch name
+main_branch <- git_branch_list(repo = repo)$name
 
 
 # Test repo with no student commits
 state <- "Emulated state: newly-cloned repo"
 pattern <- "Student"
-branch <- "main"
 test_that("Checking function must return FALSE in a newly cloned repo", {
   expect_false(
-    check_commits(pattern, repo = repo, branch = branch),
+    check_commits(pattern, repo = repo, branch = main_branch),
     info = state
   )
   expect_false(
@@ -78,7 +77,7 @@ git_commit_all(
 
 test_that("Checks must return FALSE in a repo with fewer than 3 commits", {
   expect_false(
-    check_commits(pattern, repo = repo, branch = branch),
+    check_commits(pattern, repo = repo, branch = main_branch),
     info = state
   )
   expect_true(
@@ -101,7 +100,7 @@ git_commit_all(
 )
 test_that("check_commits() must fail if 3 commits are not from the student", {
   expect_false(
-    check_commits(pattern, repo = repo, branch = branch),
+    check_commits(pattern, repo = repo, branch = main_branch),
     info = state
   )
 })
@@ -118,11 +117,11 @@ git_commit_all(
 )
 test_that("Regex must work if 3 commits are from the student", {
   expect_true(
-    check_commits(pattern, fixed = FALSE, repo = repo, branch = branch),
+    check_commits(pattern, fixed = FALSE, repo = repo, branch = main_branch),
     info = state
   )
   expect_false(
-    check_commits("Student", fixed = TRUE, repo = repo, branch = branch),
+    check_commits("Student", fixed = TRUE, repo = repo, branch = main_branch),
     info = state
   )
 })
@@ -131,7 +130,7 @@ test_that("Regex must work if 3 commits are from the student", {
 
 test_that("Checking functions must return an invisible result", {
   expect_invisible(
-    check_commits(pattern, repo = repo, branch = branch)
+    check_commits(pattern, repo = repo, branch = main_branch)
   )
   expect_invisible(
     check_repo_link(lab)
@@ -144,7 +143,7 @@ test_that("Checking functions must return an invisible result", {
   expect_invisible(
     check_mechanics(
       notebook = lab, repo = repo,
-      pattern = "Student", branch = "main"
+      pattern = "Student", branch = main_branch
     )
   )
 })
@@ -164,7 +163,7 @@ test_that("check_lat_version() must error if not on master/main branch", {
     )
   )
 
-  git_branch_checkout("main", repo = repo)
+  git_branch_checkout(main_branch, repo = repo)
 })
 
 
