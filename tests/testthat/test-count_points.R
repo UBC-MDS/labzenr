@@ -46,3 +46,24 @@ test_that("extract_points() must return a data frame", {
     min.cols = 7
   )
 })
+
+
+test_that("extract_points() must error if a bath filepath is given", {
+  expect_error(
+    extract_points("fakepath/fakefile.Rmd"),
+    regexp = "Path to notebook does not exist"
+  )
+})
+
+test_that("extract_points() must error if rubrics are not below headers", {
+
+  # create a dummy file where the 69th row is not a ##head as it should be
+  txt <- readLines(rmd)
+  txt[69] <- "Not a header"
+  withr::with_file(list("bad.Rmd" = writeLines(txt, "bad.Rmd")), {
+    expect_error(
+      extract_points("bad.Rmd"),
+      regexp = "All rubrics should be below a markdown header"
+    )
+  })
+})

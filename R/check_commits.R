@@ -29,12 +29,15 @@ check_commits <- function(pattern = NULL, fixed = TRUE, repo = ".",
   repo <- gert::git_find(repo)
 
   # fetching git user full name and email
-  signature <- signature %||% gert::git_signature_default(repo = repo)
+  signature <- pattern %||% gert::git_signature_default(repo = repo)
   usethis::ui_info("Checking commit author: {ui_code(signature)} \\
                     on branch {usethis::ui_field(branch)}")
 
   # fetching the repo from remote
-  git_fetch(verbose = interactive(), repo = repo)
+  if (nrow(git_remote_list(repo = repo)) > 0L) {
+    git_fetch(verbose = interactive(), repo = repo)
+  }
+
 
   # fetching commits for the remote repo
   commits <- gert::git_log(ref = branch, repo = repo)
