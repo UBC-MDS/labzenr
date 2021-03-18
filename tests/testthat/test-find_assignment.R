@@ -1,13 +1,11 @@
 options(usethis.quiet = TRUE)
 
-notebook <- system.file("extdata", "dummylab.Rmd", package = "labzenr")
-
 
 test_that("find_assignment() must find the dummy lab", {
+  notebook <- system.file("extdata", "dummylab.Rmd", package = "labzenr")
   fullpath <- find_assignment(notebook)
   expect_true(fs::is_file(fullpath))
 })
-
 
 test_that("find_assignment() must error if an invalid path is given", {
   fake <- "fakepath/fakelab.ipynd"
@@ -16,11 +14,14 @@ test_that("find_assignment() must error if an invalid path is given", {
   )
 })
 
-
 test_that("find_assignment() must messge if no file in the directory", {
-    expect_error(find_assignment(), regexp = "in the right directory?")
-})
 
+  # set an empty temporary directory
+  tmp <- withr::local_tempdir()
+  withr::local_dir(tmp)
+
+  expect_error(find_assignment(), regexp = "in the right directory?")
+})
 
 test_that("find_assignment() must find the dummy lab if no arguments passed", {
 
@@ -43,6 +44,4 @@ test_that("find_assignment() must find the dummy lab if no arguments passed", {
   # multiple files, NOT interactive
   rlang::local_interactive(FALSE)
   expect_warning(find_assignment(), regexp = "Multiple possible files found")
-
 })
-

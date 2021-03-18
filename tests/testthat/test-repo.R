@@ -2,7 +2,6 @@
 ## directory. Many of these state-based tests are complicated and must be
 ## run in a particular order.
 
-options(usethis.quiet = TRUE)
 suppressMessages(library(gert))
 library(testthat)
 
@@ -53,12 +52,6 @@ test_that("Checking function must return FALSE in a newly cloned repo", {
     info = state
   )
 })
-# test_that("check_commits() must message when there are fewer than 3 commits", {
-#   expect_message(
-#     check_commits(pattern, repo = repo, branch = branch),
-#     regexp = "Repo has fewer than 3 commits"
-#   )
-# })
 
 
 state <- "Emulated state: first student commit added with link"
@@ -128,6 +121,7 @@ test_that("Regex must work if 3 commits are from the student", {
 
 
 
+
 test_that("Checking functions must return an invisible result", {
   expect_invisible(
     check_commits(pattern, repo = repo, branch = main_branch)
@@ -153,14 +147,12 @@ test_that("Checking functions must return an invisible result", {
 
 ## SWITCH BRANCH
 test_that("check_lat_version() must error if not on master/main branch", {
-  git_branch_create("feature", repo = repo, checkout = TRUE)
+  withr::local_options(usethis.quiet = FALSE)
 
-  withr::with_options(
-    list(usethis.quiet = FALSE),
-    expect_message(
-      check_lat_version(repo = repo),
-      regexp = "Not on main/master branch"
-    )
+  git_branch_create("feature", repo = repo, checkout = TRUE)
+  expect_message(
+    check_lat_version(repo = repo),
+    regexp = "Not on main/master branch"
   )
 
   git_branch_checkout(main_branch, repo = repo)
@@ -168,15 +160,22 @@ test_that("check_lat_version() must error if not on master/main branch", {
 
 
 ## CLONE LOCALLY
-remote <- fs::path_temp("lab1")
+remote <- fs::path_temp("clonedrepo")
 git_clone(repo, remote, verbose = FALSE)
 test_that("check_lat_version() must work if upstream up to date", {
-  withr::with_options(
-    list(usethis.quiet = FALSE),
-    expect_message(
-      check_lat_version(repo = remote),
-      regexp = "Remote has the latest commit"
-    )
+  withr::local_options(usethis.quiet = FALSE)
+  expect_message(
+    check_lat_version(repo = remote),
+    regexp = "Remote has the latest commit"
+  )
+})
+
+
+test_that("check_commits() must attempt a fetch if a remote exists", {
+  withr::local_options(verbose = TRUE, usethis.quiet = TRUE)
+  expect_message(
+    check_commits(pattern, repo = remote, branch = main_branch),
+    regexp = "Fetching"
   )
 })
 
@@ -191,13 +190,9 @@ git_commit_all(
   repo = remote
 )
 test_that("check_lat_version() must message if upstream not up to date", {
-  withr::with_options(
-    list(usethis.quiet = FALSE),
-    {
-      expect_message(
-        check_lat_version(repo = remote),
-        regexp = "Remote does not have the latest commit"
-      )
-    }
+  withr::local_options(usethis.quiet = FALSE)
+  expect_message(
+    check_lat_version(repo = remote),
+    regexp = "Remote does not have the latest commit"
   )
 })
