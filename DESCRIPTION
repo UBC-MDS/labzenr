@@ -49,5 +49,6 @@ Imports:
     rlang,
     purrr,
     glue,
-    withr
+    withr,
+    mockery
 VignetteBuilder: knitr
