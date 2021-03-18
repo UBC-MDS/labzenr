@@ -29,6 +29,7 @@ BugReports: https://github.com/UBC-MDS/labzenr/issues
 Suggests: 
     covr,
     knitr,
+    mockery,
     rmarkdown,
     testthat (>= 3.0.0)
 Config/testthat/edition: 3
@@ -49,6 +50,5 @@ Imports:
     rlang,
     purrr,
     glue,
-    withr,
-    mockery
+    withr
 VignetteBuilder: knitr
