@@ -18,39 +18,31 @@ test_that("find_assignment() must error if an invalid path is given", {
 
 
 test_that("find_assignment() must messge if no file in the directory", {
-  withr::with_options(
-    list(usethis.quiet = FALSE),
     expect_error(find_assignment(), regexp = "in the right directory?")
-  )
 })
 
 
 test_that("find_assignment() must find the dummy lab if no arguments passed", {
 
+  # set temporary directory
+  tmp <- withr::local_tempdir()
+  withr::local_dir(tmp)
+
   # single file
-  fakefile1 <- fs::file_temp(ext = "Rmd")
-  fs::file_touch(fakefile1)
-  fakedir <- fs::path_dir(fakefile1)
-  withr::with_dir(
-    fakedir,
-    {
-      expect_true(fs::is_file(find_assignment()))
-    }
-  )
+  fs::file_touch("file1.Rmd")
+  expect_true(fs::is_file(find_assignment()))
 
-  # multiple files
-  fakefile2 <- fs::file_temp(ext = "Rmd")
-  fs::file_touch(fakefile2)
-  withr::with_dir(
-    fakedir,
-    {
-      # mockery::stub(find_assignment, "utils::menu", 1)
-      expect_warning(length(find_assignment()),
-        regexp = "Multiple possible files found"
-      )
-    }
-  )
+  # multiple files, interactive
+  fs::file_touch("file2.Rmd")
+  rlang::local_interactive()
+  mockery::stub(find_assignment, "utils::menu", 1)
+  expect_true(find_assignment() == "file1.Rmd")
+  mockery::stub(find_assignment, "utils::menu", 2)
+  expect_true(find_assignment() == "file2.Rmd")
 
-  # cleanup
-  fs::file_delete(c(fakefile1, fakefile2))
+  # multiple files, NOT interactive
+  rlang::local_interactive(FALSE)
+  expect_warning(find_assignment(), regexp = "Multiple possible files found")
+
 })
+

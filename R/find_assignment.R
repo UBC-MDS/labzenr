@@ -27,7 +27,7 @@ find_assignment <- function(notebook = NULL) {
       ui_info("Using {ui_field(files)}")
       return(files)
     } else if (length(files) > 1) {
-      if (interactive()) {
+      if (rlang::is_interactive()) {
         # menu() selection only works in interactive mode
         prompt <- "Multiple potential assignments found. Please select:"
         choice <- utils::menu(files, title = prompt)
