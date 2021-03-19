@@ -10,7 +10,7 @@
 #'   blank, labzenr will attempt to find the lab in the current directory
 #'   recursively.
 #' @return The relative filepath to the lab found. Returns NULL if none found.
-#' @importFrom usethis ui_path ui_stop ui_done ui_info ui_field ui_warn
+#' @importFrom usethis ui_path ui_stop ui_done ui_info ui_field ui_warn ui_line
 #' @export
 #'
 #' @examples
@@ -19,7 +19,6 @@
 #' find_assignment()
 #' }
 find_assignment <- function(notebook = NULL) {
-
   if (is.null(notebook)) {
     # list all candidate files
     files <- fs::dir_ls(regexp = ".*\\.(Rmd|ipynb)$", recurse = TRUE)
@@ -28,7 +27,7 @@ find_assignment <- function(notebook = NULL) {
       ui_info("Using {ui_field(files)}")
       return(files)
     } else if (length(files) > 1) {
-      if (interactive()) {
+      if (rlang::is_interactive()) {
         # menu() selection only works in interactive mode
         prompt <- "Multiple potential assignments found. Please select:"
         choice <- utils::menu(files, title = prompt)
@@ -39,17 +38,16 @@ find_assignment <- function(notebook = NULL) {
         i <- grep("lab\\d+\\.(Rmd|ipynb)$", files)
         files <- unique(c(files[i], files))
         ui_warn("Multiple possible files found: {ui_path(files)}")
-        ui_info("Using {ui_field(files[1])}")
+        ui_line(glue::glue("Using {ui_field(files[1])}"))
         return(files[1])
       }
-
     } else {
       ui_stop("Could not find an assignment file. Are you \\
                in the right directory?")
     }
   } else {
     if (fs::file_exists(notebook)) {
-      return(fs::path_sanitize(notebook))
+      return(notebook)
     } else {
       rlang::abort(glue::glue("Could not find file {ui_path(notebook)}"))
     }
