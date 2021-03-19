@@ -132,6 +132,7 @@ signature_add <- function(x, is_regexp = TRUE, is_user = TRUE) {
 #'   that are not in the labzenr signature cache.
 #' @export
 signature_student <- function(repo = ".") {
+  withr::local_dir(repo)
   sigs <- rlang::with_interactive(signature_ls(repo), FALSE)
   sigs <- sigs[sigs$is_user, , drop = FALSE]
   sigs

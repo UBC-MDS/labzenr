@@ -118,8 +118,8 @@ git_commit_all(
 )
 test_that("Regex must work if 3 commits are from the student", {
   rlang::local_interactive(FALSE)
-  withr::local_dir(repo)
-  expect_true(
+  withr::local_options(list(labzenr.sigfile = "dev.csv"))
+  expect_false(
     check_commits(repo = repo, branch = main_branch),
     info = state
   )
@@ -129,6 +129,7 @@ test_that("Regex must work if 3 commits are from the student", {
 
 
 test_that("Checking functions must return an invisible result", {
+  withr::local_options(list(labzenr.sigfile = "dev.csv"))
   expect_invisible(
     check_commits(repo = repo, branch = main_branch)
   )
@@ -153,7 +154,8 @@ test_that("Checking functions must return an invisible result", {
 
 ## SWITCH BRANCH
 test_that("check_lat_version() must error if not on master/main branch", {
-  withr::local_options(usethis.quiet = FALSE)
+  withr::local_options(usethis.quiet = FALSE,
+                       labzenr.sigfile = "dev.csv")
 
   git_branch_create("feature", repo = repo, checkout = TRUE)
   expect_message(
@@ -169,7 +171,8 @@ test_that("check_lat_version() must error if not on master/main branch", {
 remote <- fs::path_temp("clonedrepo")
 git_clone(repo, remote, verbose = FALSE)
 test_that("check_lat_version() must work if upstream up to date", {
-  withr::local_options(usethis.quiet = FALSE)
+  withr::local_options(usethis.quiet = FALSE,
+                       labzenr.sigfile = "dev.csv")
   expect_message(
     check_lat_version(repo = remote),
     regexp = "Remote has the latest commit"
@@ -178,7 +181,9 @@ test_that("check_lat_version() must work if upstream up to date", {
 
 
 test_that("check_commits() must attempt a fetch if a remote exists", {
-  withr::local_options(verbose = TRUE, usethis.quiet = TRUE)
+  withr::local_options(usethis.quiet = FALSE,
+                       verbose = TRUE,
+                       labzenr.sigfile = "dev.csv")
   expect_message(
     check_commits(repo = remote, branch = main_branch),
     regexp = "Fetching"
@@ -196,7 +201,8 @@ git_commit_all(
   repo = remote
 )
 test_that("check_lat_version() must message if upstream not up to date", {
-  withr::local_options(usethis.quiet = FALSE)
+  withr::local_options(usethis.quiet = FALSE,
+                       labzenr.sigfile = "dev.csv")
   expect_message(
     check_lat_version(repo = remote),
     regexp = "Remote does not have the latest commit"
