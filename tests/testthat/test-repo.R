@@ -16,6 +16,10 @@ repo <- fs::path_temp("lab0")
 trydelete(fs::path(repo, ".git"))
 git_init(repo)
 
+# set local config
+gert::git_config_set("user.name", "Garfield", repo = repo)
+gert::git_config_set("user.email", "garfield@email.com", repo = repo)
+
 # copy a dummy lab file into it
 notebook <- system.file("extdata", "badlab.Rmd", package = "labzenr")
 fs::file_copy(notebook, repo, overwrite = TRUE)
