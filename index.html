@@ -35,7 +35,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">labzenr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.0</span>
       </span>
     </div>
 
@@ -87,28 +87,8 @@
 <a href="#labzenr" class="anchor"></a>labzenr</h1></div>
 <!-- badges: start -->
 
-<p><code>labzenr</code> is a R package that adds more <a href="https://en.wikipedia.org/wiki/Zen">zen</a> to your student experience of working on <a href="https://masterdatascience.ubc.ca/">MDS</a> labs. It lets you manage common tasks such as counting total marks in an assigment, and performs common checks for mechanics in your iPython notebooks and R markdown assignments.</p>
-<div id="features" class="section level2">
-<h2 class="hasAnchor">
-<a href="#features" class="anchor"></a>Features</h2>
-<p><strong>labzenr</strong> helps members of the <a href="https://masterdatascience.ubc.ca/">UBC Master of Data Science (MDS)</a> manage lab assignments written in iPython notebooks and R markdown. The package saves precious student time by automating common tasks such as counting up total marks in a lab assignment, and performing common mechanical checks that can– if overlooked– lose a student easy marks.</p>
-<p>The package has the following functions:</p>
-<ul>
-<li><p><strong>Function 1</strong>: The internal <code><a href="reference/parse_lab.html">parse_lab()</a></code> function will take an MDS .ipynb or .Rmd lab and return its markdown contents as a list/vector of strings. The function will scrub out yaml, code blocks, and all other metadata.</p></li>
-<li><p><strong>Function 2</strong>: <code><a href="reference/count_points.html">count_points()</a></code> will build upon the first function and further parse labs into sections using regex. Further string manipulation will determine how many optional and required points there are per section based on the rubric tags. The function will return a table of totals so that students can plan how many optionals they wish to complete.</p></li>
-<li>
-<p><strong>Function 3</strong>: <code><a href="reference/check_mechanics.html">check_mechanics()</a></code> conduct and print a series of mechanics checks to screen. For example, the function will</p>
-<ul>
-<li>Check that you have included a Github repo link;</li>
-<li>Check that you have pushed the latest version; and</li>
-<li>Check that you have at least three commits.</li>
-</ul>
-</li>
-</ul>
-<p>The package data will include a directory of public and/or dummy lab files (.ipynb and .Rmd). Private or unpublished lab files will not be committed to the repository.</p>
-<p>To the authors’ knowledge, no package yet exists in the R ecosystem that serves this specific purpose. However, several existing packages will be used to power the functionality of <code>labzenr</code>, including <code>gert</code> and <code>usethis</code>.Some other python repos and past assignments may be used as inspiration, such as the parsing work done in the <em>throughput database</em> in DSCI 513.</p>
-<p>This is a port of python <a href="https://github.com/UBC-MDS/labzen">labzen package</a> written by the same authors.</p>
-</div>
+<p><code>labzenr</code> is a R package that adds more <a href="https://en.wikipedia.org/wiki/Zen">zen</a> to the student experience of working on <a href="https://masterdatascience.ubc.ca/">UBC Master of Data Science</a> labs. It lets students manage common tasks such as counting total marks in an assignment, and performs common mechanics checks for iPython notebooks and R markdown assignments.</p>
+<p>The project is a port of python <a href="https://github.com/UBC-MDS/labzen">labzen package</a> written by the same authors.</p>
 <div id="installation" class="section level2">
 <h2 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h2>
@@ -117,48 +97,75 @@
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"devtools"</span><span class="op">)</span>
 <span class="fu">devtools</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"UBC-MDS/labzenr"</span><span class="op">)</span></code></pre></div>
 </div>
-<div id="dependencies" class="section level2">
-<h2 class="hasAnchor">
-<a href="#dependencies" class="anchor"></a>Dependencies</h2>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">fs</span>
-<span class="va">stringi</span>
-<span class="va">usethis</span>
-<span class="va">gert</span>
-<span class="va">magrittr</span>
-<span class="va">janitor</span>
-<span class="va">dplyr</span>
-<span class="va">tibble</span>
-<span class="va">tidyr</span>
-<span class="va">checkmate</span>
-<span class="va">credentials</span>
-<span class="va">jsonlite</span>
-<span class="va">stringr</span>
-<span class="va">rlang</span>
-<span class="va">purrr</span></code></pre></div>
-</div>
 <div id="usage" class="section level2">
 <h2 class="hasAnchor">
 <a href="#usage" class="anchor"></a>Usage</h2>
-<p>In order to show the usage of our package, we provided two dummy labs, one <a href="https://github.com/UBC-MDS/labzenr/tree/master/inst/extdata/dummylab.Rmd">Rmarkdown lab</a> and one <a href="https://github.com/UBC-MDS/labzenr/tree/master/inst/extdata/dummylab.ipynb">Jupyter notebook</a>.</p>
-<p>First, load the <code>labzenr</code> package and get the path to the dummy Jupyter notebook lab.</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://ubc-mds.github.io/labzenr">labzenr</a></span><span class="op">)</span>
-<span class="va">notebook_py</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, <span class="st">"dummylab.ipynb"</span>, package <span class="op">=</span> <span class="st">"labzenr"</span><span class="op">)</span></code></pre></div>
-<p>The following code chunk returns two DataFrame. The first one (<code>extracted_points</code>) is a section-by-section overview of points available. The second Dataframe (<code>total_points</code>) is a cross table summarising the number of optional, required, and total points per lab.</p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">extracted_points</span>  <span class="op">&lt;-</span> <span class="fu"><a href="reference/count_points.html">count_points</a></span><span class="op">(</span><span class="va">notebook_py</span><span class="op">)</span>
-<span class="va">total_pointsis</span>  <span class="op">&lt;-</span> <span class="fu"><a href="reference/extract_points.html">extract_points</a></span><span class="op">(</span><span class="va">notebook_py</span><span class="op">)</span>
-<span class="va">extracted_points</span>
-<span class="va">total_points</span></code></pre></div>
 <p>To check the mechanics of your MDS labs, navigate to the root of your MDS lab Git repository and run the following code.</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="reference/check_mechanics.html">check_mechanics</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
-<p><code>check_mechanics</code> perform the following tests on your current Git repository:</p>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">labzenr</span><span class="fu">::</span><span class="fu"><a href="reference/check_mechanics.html">check_mechanics</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<pre><code>#&gt; ℹ Using lab2.Rmd
+#&gt; ✓ You included the repo link https://github.ubc.ca/MDS-2020-21/DSCI_998_lab1_johnsmith
+#&gt; ✓ Remote has the latest commit
+#&gt; Trying to authenticate 'git' using ssh-agent...
+#&gt; ✓ No unrecognized Git signatures found. To add signatures manually, use `labzenr::signature_add()`.
+#&gt; ℹ To see the list of currently registered signatures, run `labzenr::signature_ls()`.
+#&gt; ✓ Repo has at least 3 commits with users listed in `labzenr::signature_student()`</code></pre>
+<p>The printout shows that:</p>
 <ul>
-<li>Check that you have included a Github repo link;</li>
-<li>Check that you have pushed the latest version; and</li>
-<li>Check that you have at least three commits.</li>
+<li>you have successfully included a Github repo link;</li>
+<li>you have pushed the latest version to Github Enterprise; and</li>
+<li>you have at least three student commits.</li>
+</ul>
+<p>You can also get an overview of the number of points attainable in the lab by running:</p>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">labzenr</span><span class="fu">::</span><span class="fu"><a href="reference/count_points.html">count_points</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<table class="table">
+<thead><tr class="header">
+<th align="left">type</th>
+<th align="right">total</th>
+<th align="right">prop</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="left">Non-Optional</td>
+<td align="right">14</td>
+<td align="right">0.9500000</td>
+</tr>
+<tr class="even">
+<td align="left">Optional</td>
+<td align="right">6</td>
+<td align="right">0.4071429</td>
+</tr>
+<tr class="odd">
+<td align="left">Total</td>
+<td align="right">20</td>
+<td align="right">1.3571429</td>
+</tr>
+</tbody>
+</table>
+<p>For a full introduction to all the features, please see the <a href="https://ubc-mds.github.io/labzenr/articles/intro-to-labzenr.html">introductory vignette</a>.</p>
+</div>
+<div id="dependencies" class="section level2">
+<h2 class="hasAnchor">
+<a href="#dependencies" class="anchor"></a>Dependencies</h2>
+<ul>
+<li>fs</li>
+<li>stringi</li>
+<li>usethis</li>
+<li>gert</li>
+<li>magrittr</li>
+<li>janitor</li>
+<li>dplyr</li>
+<li>tibble</li>
+<li>tidyr</li>
+<li>jsonlite</li>
+<li>stringr</li>
+<li>rlang</li>
+<li>purrr</li>
+<li>glue</li>
+<li>withr</li>
+<li>readr</li>
+<li>rappdirs</li>
 </ul>
 </div>
 <div id="code-of-conduct" class="section level2">
