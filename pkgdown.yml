@@ -3,7 +3,7 @@ pkgdown: 1.6.1
 pkgdown_sha: ~
 articles:
   intro-to-labzenr: intro-to-labzenr.html
-last_built: 2021-03-20T05:31Z
+last_built: 2021-03-27T04:19Z
 urls:
   reference: https://ubc-mds.github.io/labzenr/reference
   article: https://ubc-mds.github.io/labzenr/articles
