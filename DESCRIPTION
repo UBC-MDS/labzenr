@@ -17,7 +17,7 @@ Authors@R:
 Description: labzenr is a R package that adds 
     more zen to your student experience of working on MDS labs. 
     It lets you manage common tasks such as counting total marks 
-    in an assigment, and performs common checks for mechanics in 
+    in an assignment, and performs common checks for mechanics in 
     your iPython notebooks and R markdown assignments.
 License: MIT + file LICENSE
 Encoding: UTF-8
