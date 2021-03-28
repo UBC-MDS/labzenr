@@ -18,6 +18,7 @@ Check whether the user has pushed the latest version in his/her repository
 }
 \examples{
 \dontrun{
-check_lat_version()
+labzenr:::check_lat_version()
 }
 }
+\keyword{internal}

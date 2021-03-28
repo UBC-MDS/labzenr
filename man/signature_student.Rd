@@ -2,7 +2,7 @@
 % Please edit documentation in R/git_signatures.R
 \name{signature_student}
 \alias{signature_student}
-\title{Return a List of Known Student Signatures}
+\title{List of Known Student Signatures}
 \usage{
 signature_student(repo = ".")
 }
@@ -15,5 +15,5 @@ A logical indicating whether there are candidate Git signatures
 that are not in the labzenr signature cache.
 }
 \description{
-Return a List of Known Student Signatures
+List of Known Student Signatures
 }

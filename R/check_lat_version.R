@@ -3,10 +3,11 @@
 #' @param repo A character path specifying the repo to check.
 #' @return A logical which indicates whether the last pushed version is latest
 #'   or not
-#' @export
+#'
+#' @keywords internal
 #' @examples
 #' \dontrun{
-#' check_lat_version()
+#' labzenr:::check_lat_version()
 #' }
 check_lat_version <- function(repo = ".") {
   if (!gert::git_branch(repo = repo) %in% c("main", "master")) {

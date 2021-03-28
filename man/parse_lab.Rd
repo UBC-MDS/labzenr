@@ -21,9 +21,10 @@ Parse MDS lab files to return the markdown content
 \examples{
 # R markdown
 notebook <- system.file("extdata", "dummylab.Rmd", package = "labzenr")
-parse_lab(notebook)
+labzenr:::parse_lab(notebook)
 
 # Python notebook
 notebook <- system.file("extdata", "dummylab.ipynb", package = "labzenr")
-parse_lab(notebook)
+labzenr:::parse_lab(notebook)
 }
+\keyword{internal}

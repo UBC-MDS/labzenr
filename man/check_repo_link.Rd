@@ -2,8 +2,7 @@
 % Please edit documentation in R/labchecks.R
 \name{check_repo_link}
 \alias{check_repo_link}
-\title{Check whether the user has included the github repo link in his/her
-repository}
+\title{Check for a Repo Link}
 \usage{
 check_repo_link(notebook = NULL)
 }
@@ -23,10 +22,11 @@ repository
 \dontrun{
 # Python notebook example should work as it DOES not have a link
 notebook <- system.file("extdata", "dummylab.ipynb", package = "labzenr")
-check_repo_link(notebook)
+labzenr:::check_repo_link(notebook)
 
 # R markdown example should fail as it does NOT have a link
 notebook <- system.file("extdata", "dummylab.Rmd", package = "labzenr")
-check_repo_link(notebook)
+labzenr:::check_repo_link(notebook)
 }
 }
+\keyword{internal}

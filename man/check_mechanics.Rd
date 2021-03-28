@@ -2,9 +2,7 @@
 % Please edit documentation in R/labchecks.R
 \name{check_mechanics}
 \alias{check_mechanics}
-\title{Performs Mechanics Checks on a MDS Lab This function check that you have a
-Github repo link, that you have pushed your latest commit, and that you have
-at least three commit messages authored by you in your history.}
+\title{Check MDS Lab Mechanics}
 \usage{
 check_mechanics(
   notebook = NULL,
@@ -28,7 +26,7 @@ The function prints the results of the mechanics checks to screen.
 Silently returns TRUE if all the checks are passed.
 }
 \description{
-Performs Mechanics Checks on a MDS Lab This function check that you have a
+Perform mechanics checks on a MDS Lab. This function checks that you have a
 Github repo link, that you have pushed your latest commit, and that you have
 at least three commit messages authored by you in your history.
 }
