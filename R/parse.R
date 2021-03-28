@@ -8,16 +8,16 @@
 #'   cell.
 #'
 #' @importFrom rlang %||%
-#' @export
+#' @keywords internal
 #'
 #' @examples
 #' # R markdown
 #' notebook <- system.file("extdata", "dummylab.Rmd", package = "labzenr")
-#' parse_lab(notebook)
+#' labzenr:::parse_lab(notebook)
 #'
 #' # Python notebook
 #' notebook <- system.file("extdata", "dummylab.ipynb", package = "labzenr")
-#' parse_lab(notebook)
+#' labzenr:::parse_lab(notebook)
 parse_lab <- function(notebook = NULL) {
   # find_assignment if the user did not define the notebook path
   notebook <- notebook %||% find_assignment()
@@ -66,7 +66,10 @@ parse_lab <- function(notebook = NULL) {
   return(source)
 }
 
-# helper function for extracting the file extension
+#' Extract the file extension
+#'
+#' @keywords internal
+#' @noRd
 getExtension <- function(file) {
   ex <- strsplit(basename(file), split = "\\.")[[1]]
   return(ex[-1])

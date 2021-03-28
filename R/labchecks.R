@@ -1,19 +1,21 @@
+#' Check for a Repo Link
+#'
 #' Check whether the user has included the github repo link in his/her
 #' repository
 #'
 #' @inheritParams parse_lab
 #' @return A logical which indicates whether the repo link exists or not
 #'
-#'
+#' @keywords internal
 #' @examples
 #' \dontrun{
 #' # Python notebook example should work as it DOES not have a link
 #' notebook <- system.file("extdata", "dummylab.ipynb", package = "labzenr")
-#' check_repo_link(notebook)
+#' labzenr:::check_repo_link(notebook)
 #'
 #' # R markdown example should fail as it does NOT have a link
 #' notebook <- system.file("extdata", "dummylab.Rmd", package = "labzenr")
-#' check_repo_link(notebook)
+#' labzenr:::check_repo_link(notebook)
 #' }
 check_repo_link <- function(notebook = NULL) {
 
@@ -41,7 +43,9 @@ check_repo_link <- function(notebook = NULL) {
 }
 
 
-#' Performs Mechanics Checks on a MDS Lab This function check that you have a
+#' Check MDS Lab Mechanics
+#'
+#' Perform mechanics checks on a MDS Lab. This function checks that you have a
 #' Github repo link, that you have pushed your latest commit, and that you have
 #' at least three commit messages authored by you in your history.
 #'

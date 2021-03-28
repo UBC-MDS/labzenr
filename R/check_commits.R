@@ -11,12 +11,13 @@
 #' @importFrom stringr str_detect
 #' @importFrom purrr map_lgl
 #' @importFrom stats setNames
-#' @export
+#'
+#' @keywords internal
 #' @examples
 #' \dontrun{
 #' # navigate to a Git directory for a lab, e.g.:
 #' # set_wd("~/mds/lab5")
-#' check_commits()
+#' labzenr:::check_commits()
 #' }
 #'
 check_commits <- function(repo = ".",

@@ -23,6 +23,7 @@ to select which file they wish.
 \examples{
 \dontrun{
 # Navigate to a UBC-MDS lab repo and type
-find_assignment()
+labzenr:::find_assignment()
 }
 }
+\keyword{internal}

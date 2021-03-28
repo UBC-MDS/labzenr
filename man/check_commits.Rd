@@ -23,7 +23,8 @@ Check whether the user has at least three commits
 \dontrun{
 # navigate to a Git directory for a lab, e.g.:
 # set_wd("~/mds/lab5")
-check_commits()
+labzenr:::check_commits()
 }
 
 }
+\keyword{internal}

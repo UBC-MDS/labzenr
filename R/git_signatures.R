@@ -58,7 +58,7 @@ find_candidate_signatures <- function(repo = ".", max_commits = 100L) {
 
 
 
-#' Interactively Update
+#' Interactively Update Git Signatures
 #'
 #'
 #' This function is intended to be run interactively from within an R session.
@@ -129,7 +129,7 @@ signature_add <- function(x, is_regexp = TRUE, is_user = TRUE) {
 }
 
 
-#' Return a List of Known Student Signatures
+#' List of Known Student Signatures
 #'
 #' @inheritParams signature_update
 #' @return A logical indicating whether there are candidate Git signatures

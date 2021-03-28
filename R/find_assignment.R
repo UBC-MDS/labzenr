@@ -11,12 +11,12 @@
 #'   recursively.
 #' @return The relative filepath to the lab found. Returns NULL if none found.
 #' @importFrom usethis ui_path ui_stop ui_done ui_info ui_field ui_warn ui_line
-#' @export
+#' @keywords internal
 #'
 #' @examples
 #' \dontrun{
 #' # Navigate to a UBC-MDS lab repo and type
-#' find_assignment()
+#' labzenr:::find_assignment()
 #' }
 find_assignment <- function(notebook = NULL) {
   if (is.null(notebook)) {

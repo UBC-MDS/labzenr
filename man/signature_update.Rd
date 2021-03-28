@@ -2,7 +2,7 @@
 % Please edit documentation in R/git_signatures.R
 \name{signature_update}
 \alias{signature_update}
-\title{Interactively Update}
+\title{Interactively Update Git Signatures}
 \usage{
 signature_update(repo = ".", max_commits = 100L)
 }
