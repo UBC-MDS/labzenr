@@ -6,8 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Check whether the user has included the github repo link in his/her
-repository — check_repo_link • labzenr</title>
+<title>Check for a Repo Link — check_repo_link • labzenr</title>
 
 
 <!-- jquery -->
@@ -40,8 +39,7 @@ repository — check_repo_link • labzenr</title>
 
 
 
-<meta property="og:title" content="Check whether the user has included the github repo link in his/her
-repository — check_repo_link" />
+<meta property="og:title" content="Check for a Repo Link — check_repo_link" />
 <meta property="og:description" content="Check whether the user has included the github repo link in his/her
 repository" />
 
@@ -123,8 +121,7 @@ repository" />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Check whether the user has included the github repo link in his/her
-repository</h1>
+    <h1>Check for a Repo Link</h1>
     <small class="dont-index">Source: <a href='https://github.com/UBC-MDS/labzenr/blob/master/R/labchecks.R'><code>R/labchecks.R</code></a></small>
     <div class="hidden name"><code>check_repo_link.Rd</code></div>
     </div>
@@ -155,11 +152,11 @@ search for all labs in the working directory based on the file extension.</p></t
     <pre class="examples"><div class='input'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
 <span class='co'># Python notebook example should work as it DOES not have a link</span>
 <span class='va'>notebook</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span><span class='op'>(</span><span class='st'>"extdata"</span>, <span class='st'>"dummylab.ipynb"</span>, package <span class='op'>=</span> <span class='st'>"labzenr"</span><span class='op'>)</span>
-<span class='fu'>check_repo_link</span><span class='op'>(</span><span class='va'>notebook</span><span class='op'>)</span>
+<span class='fu'>labzenr</span><span class='fu'>:::</span><span class='fu'>check_repo_link</span><span class='op'>(</span><span class='va'>notebook</span><span class='op'>)</span>
 
 <span class='co'># R markdown example should fail as it does NOT have a link</span>
 <span class='va'>notebook</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span><span class='op'>(</span><span class='st'>"extdata"</span>, <span class='st'>"dummylab.Rmd"</span>, package <span class='op'>=</span> <span class='st'>"labzenr"</span><span class='op'>)</span>
-<span class='fu'>check_repo_link</span><span class='op'>(</span><span class='va'>notebook</span><span class='op'>)</span>
+<span class='fu'>labzenr</span><span class='fu'>:::</span><span class='fu'>check_repo_link</span><span class='op'>(</span><span class='va'>notebook</span><span class='op'>)</span>
 <span class='op'>}</span>
 </div></pre>
   </div>
