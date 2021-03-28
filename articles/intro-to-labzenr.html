@@ -89,20 +89,20 @@
 
     
     
-<p>labzenr is a R package that adds more zen to your student experience of working on MDS labs. It lets you manage common tasks such as counting total marks in an assigment, and performs common checks for mechanics in your iPython notebooks and R markdown assignments.</p>
+<p><code>labzenr</code> is a R package that adds more zen to your student experience of working on MDS labs. It lets you manage common tasks such as counting total marks in an assignment, and performs common checks for mechanics in your iPython notebooks and R markdown assignments.</p>
 <p>In this vignette, we will show you how to give <code>labzenr</code> a spin!</p>
 <div id="setup" class="section level2">
 <h2 class="hasAnchor">
 <a href="#setup" class="anchor"></a>Setup</h2>
 <p>After <a href="https://github.com/UBC-MDS/labzenr/tree/vignet#installation">installing <code>labzenr</code></a>, run <code><a href="https://usethis.r-lib.org/reference/git_sitrep.html">usethis::git_sitrep()</a></code> to obtain a situation report of your local Git credentials status.</p>
-<p>If the printout indicates that you do not a token setup, you will need to follow the instructions to <a href="https://usethis.r-lib.org/articles/articles/git-credentials.html">set up your creditials</a> first.</p>
+<p>If the printout indicates that you do not a token setup, you will need to follow the instructions to <a href="https://usethis.r-lib.org/articles/articles/git-credentials.html">set up your credentials</a> first.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://ubc-mds.github.io/labzenr">labzenr</a></span><span class="op">)</span></code></pre></div>
 <p>For this demo, we’ll pretend as if we are in a directory on our computer containing just one lab file (ending in either <code>.Rmd</code> or <code>.ipynb</code>):</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/getwd.html">getwd</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <pre><code>#&gt; [1] "~/mds/block1/dsci999/lab2"</code></pre>
-<p>We can check what the files are in the current directory:</p>
+<p>We can check what files are in the current directory:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/list.files.html">list.files</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <pre><code>#&gt; [1] "~/mds/block1/dsci999/lab2/lab2.Rmd"</code></pre>
@@ -134,10 +134,19 @@
 <span id="cb8-3"><a href="#cb8-3"></a><span class="dv">1</span><span class="op">:</span><span class="st"> </span>Student</span>
 <span id="cb8-4"><a href="#cb8-4"></a><span class="dv">2</span><span class="op">:</span><span class="st"> </span>Instructor</span>
 <span id="cb8-5"><a href="#cb8-5"></a><span class="dv">3</span><span class="op">:</span><span class="st"> </span>I don<span class="st">'t know! (escape)</span></span></code></pre></div>
-<p>In the above example, we would want to enter “2” in the console in order to add our professor Dr. Strange into our cache of known instructors. This will allow the check on the number of commits to correctly count up the student commits, and ignore the instructor commits.</p>
-<p>Anytime you switch labs and a new git author is found in your log, <code>labzen</code> will ask you about them. To view your cache of known Git users, run <code>labzenr::signatures_ls()</code>.</p>
+<p>In the above example, we would want to enter “2” in the console in order to add our professor Dr. Strange into our cache of known instructors. This will allow <code><a href="../reference/check_mechanics.html">check_mechanics()</a></code> to count the number of student commits, while ignoring the instructor commits.</p>
+<p>Anytime you switch labs and a new git author is found in your log, <code>labzen</code> will ask you about it. To view your cache of known Git users, run <code><a href="../reference/signature_ls.html">labzenr::signature_ls()</a></code>:</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a><span class="op">&gt;</span><span class="st"> </span><span class="kw">signature_ls</span>()</span>
+<span id="cb9-2"><a href="#cb9-2"></a>✓ No unrecognized Git signatures found. To add signatures manually, use <span class="st">`</span><span class="dt">labzenr::signature_add()</span><span class="st">`</span>.</span>
+<span id="cb9-3"><a href="#cb9-3"></a>ℹ To see the list of currently registered signatures, run <span class="st">`</span><span class="dt">labzenr::signature_ls()</span><span class="st">`</span>.</span>
+<span id="cb9-4"><a href="#cb9-4"></a><span class="co"># A tibble: 8 x 3</span></span>
+<span id="cb9-5"><a href="#cb9-5"></a>  signature                        is_user is_regexp</span>
+<span id="cb9-6"><a href="#cb9-6"></a>  <span class="op">&lt;</span>chr<span class="op">&gt;</span><span class="st">                            </span><span class="er">&lt;</span>lgl<span class="op">&gt;</span><span class="st">   </span><span class="er">&lt;</span>lgl<span class="op">&gt;</span><span class="st">    </span></span>
+<span id="cb9-7"><a href="#cb9-7"></a><span class="dv">1</span> John Smith <span class="op">&lt;</span>jsmith<span class="op">@</span>example.com<span class="op">&gt;</span><span class="st">  </span><span class="ot">TRUE</span>    <span class="ot">FALSE</span>    </span>
+<span id="cb9-8"><a href="#cb9-8"></a><span class="dv">2</span> J. SMITH <span class="op">&lt;</span>jsmith<span class="op">@</span>example.com<span class="op">&gt;</span><span class="st">    </span><span class="ot">TRUE</span>    <span class="ot">FALSE</span>    </span>
+<span id="cb9-9"><a href="#cb9-9"></a><span class="dv">3</span> Dr. Strage <span class="op">&lt;</span>strange<span class="op">@</span>stat.ubc.ca<span class="op">&gt;</span><span class="st"> </span><span class="ot">FALSE</span>   <span class="ot">FALSE</span>    </span></code></pre></div>
 <p>You can also choose to manually add <code>regex</code> patterns to search for known patterns:</p>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/signature_add.html">signature_add</a></span><span class="op">(</span><span class="st">"John S(\\.|mith)"</span>, is_user <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
 <p>This will allow us to detect future commits both for “John Smith” and “John S.”. The <code>is_user = TRUE</code> argument specifies that John is a student, not an instructor.</p>
 </div>
@@ -145,7 +154,7 @@
 <h2 class="hasAnchor">
 <a href="#counting-points" class="anchor"></a>Counting Points</h2>
 <p>When working on a lab from within RStudio, you can simply run:</p>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/extract_points.html">extract_points</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <table class="table">
 <thead><tr class="header">
@@ -205,10 +214,10 @@
 </tr>
 </tbody>
 </table>
-<p>This will produce the above table (shown nicely here using <code><a href="https://rdrr.io/pkg/knitr/man/kable.html">knitr::kable()</a></code>). If there is more than one assignment in the current working directory (ending in <code>.Rmd</code> or <code>.ipynb</code>), then you will be prompted to specify which lab to analyse.</p>
-<p>The table above shows us that there are 5 sections in this lab, and whether these points are optional or not. The total number of points is shown in the <em>total</em> column. Since requires quesitons only are meant to get you to a 95% grade, the optionals may imply a total percentage that is less than (or more) than 100% in the <em>prop</em> column.</p>
+<p>This will produce the above table (shown nicely here using <code><a href="https://rdrr.io/pkg/knitr/man/kable.html">knitr::kable()</a></code>). If there is more than one assignment in the working directory (ending in <code>.Rmd</code> or <code>.ipynb</code>), then you will be prompted to specify which lab to analyse.</p>
+<p>The table above shows us that there are 5 sections in this lab, and whether these points are optional or not. The total number of points is shown in the <em>total</em> column. Since requires questions only are meant to get you to a 95% grade, the optionals may imply a total percentage that is less than (or more) than 100% in the <em>prop</em> column.</p>
 <p>For convenience, the total marks can also be tabulated via:</p>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/count_points.html">count_points</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <table class="table">
 <thead><tr class="header">
@@ -236,7 +245,7 @@
 </table>
 <p>In this fake example, we can see that the optional questions are worth a lot of marks– more than enough to get to 100% if completed.</p>
 <p>These functions can also be called explicitly on files not in the current working directory:</p>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/count_points.html">count_points</a></span><span class="op">(</span><span class="st">"~/mds/block5/dsci998/lab1/lab1.ipynb"</span><span class="op">)</span></code></pre></div>
 <table class="table">
 <thead><tr class="header">
@@ -266,13 +275,13 @@
 <div id="using-labzenr-at-the-command-line" class="section level2">
 <h2 class="hasAnchor">
 <a href="#using-labzenr-at-the-command-line" class="anchor"></a>Using labzenr at the Command Line</h2>
-<p>You can set an alias in your <code>~/.bash_profile</code> to allow labzenr to work at the command line. We recommend:</p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb13-1"><a href="#cb13-1"></a><span class="bu">alias</span> checklab=<span class="st">'Rscript -e "labzenr::check_mechanics()"'</span></span>
-<span id="cb13-2"><a href="#cb13-2"></a><span class="bu">alias</span> points=<span class="st">'Rscript -e "labzenr::count_points()"'</span></span></code></pre></div>
+<p>You can set an alias in your <code>~/.bash_profile</code> to allow <code>labzenr</code> to work at the command line. We recommend:</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb14-1"><a href="#cb14-1"></a><span class="bu">alias</span> checklab=<span class="st">'Rscript -e "labzenr::check_mechanics()"'</span></span>
+<span id="cb14-2"><a href="#cb14-2"></a><span class="bu">alias</span> points=<span class="st">'Rscript -e "labzenr::count_points()"'</span></span></code></pre></div>
 <p>Then you can simply run</p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb14-1"><a href="#cb14-1"></a><span class="ex">checklab</span></span></code></pre></div>
+<div class="sourceCode" id="cb15"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb15-1"><a href="#cb15-1"></a><span class="ex">checklab</span></span></code></pre></div>
 <p>or</p>
-<div class="sourceCode" id="cb15"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb15-1"><a href="#cb15-1"></a><span class="ex">points</span></span></code></pre></div>
+<div class="sourceCode" id="cb16"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb16-1"><a href="#cb16-1"></a><span class="ex">points</span></span></code></pre></div>
 <p>From any directory to have it print out the relevant output. Note that interactive features will not work in the same way they do in the R console.</p>
 </div>
   </div>
