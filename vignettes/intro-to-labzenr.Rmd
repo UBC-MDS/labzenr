@@ -16,7 +16,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-labzenr is a R package that adds more zen to your student experience of working on MDS labs. It lets you manage common tasks such as counting total marks in an assigment, and performs common checks for mechanics in your iPython notebooks and R markdown assignments.
+`labzenr` is a R package that adds more zen to your student experience of working on MDS labs. It lets you manage common tasks such as counting total marks in an assignment, and performs common checks for mechanics in your iPython notebooks and R markdown assignments.
 
 In this vignette, we will show you how to give `labzenr` a spin!
 
@@ -24,7 +24,7 @@ In this vignette, we will show you how to give `labzenr` a spin!
 
 After [installing `labzenr`](https://github.com/UBC-MDS/labzenr/tree/vignet#installation), run `usethis::git_sitrep()` to obtain a situation report of your local Git credentials status.
 
-If the printout indicates that you do not a token setup, you will need to follow the instructions to [set up your creditials](https://usethis.r-lib.org/articles/articles/git-credentials.html) first.
+If the printout indicates that you do not a token setup, you will need to follow the instructions to [set up your credentials](https://usethis.r-lib.org/articles/articles/git-credentials.html) first.
 
 
 
@@ -49,7 +49,7 @@ getwd()
 print("~/mds/block1/dsci999/lab2")
 ```
 
-We can check what the files are in the current directory:
+We can check what files are in the current directory:
 
 ```{r, eval=FALSE}
 list.files()
@@ -99,9 +99,9 @@ If it is your first time using `labzenr`, the package will not know which Github
 3: I don't know! (escape)
 ```
 
-In the above example, we would want to enter "2" in the console in order to add our professor Dr. Strange into our cache of known instructors. This will allow the check on the number of commits to correctly count up the student commits, and ignore the instructor commits.
+In the above example, we would want to enter "2" in the console in order to add our professor Dr. Strange into our cache of known instructors. This will allow `check_mechanics()` to count the number of student commits, while ignoring the instructor commits.
 
-Anytime you switch labs and a new git author is found in your log, `labzen` will ask you about them. To view your cache of known Git users, run `labzenr::signatures_ls()`.
+Anytime you switch labs and a new git author is found in your log, `labzen` will ask you about it. To view your cache of known Git users, run `labzenr::signature_ls()`:
 
 You can also choose to manually add `regex` patterns to search for known patterns:
 
@@ -125,9 +125,9 @@ extract_points()
 kable(extract_points(lab))
 ```
 
-This will produce the above table (shown nicely here using `knitr::kable()`). If there is more than one assignment in the current working directory (ending in `.Rmd` or `.ipynb`), then you will be prompted to specify which lab to analyse.
+This will produce the above table (shown nicely here using `knitr::kable()`). If there is more than one assignment in the working directory (ending in `.Rmd` or `.ipynb`), then you will be prompted to specify which lab to analyse.
 
-The table above shows us that there are 5 sections in this lab, and whether these points are optional or not. The total number of points is shown in the *total* column. Since requires quesitons only are meant to get you to a 95% grade, the optionals may imply a total percentage that is less than (or more) than 100% in the *prop* column.
+The table above shows us that there are 5 sections in this lab, and whether these points are optional or not. The total number of points is shown in the *total* column. Since requires questions only are meant to get you to a 95% grade, the optionals may imply a total percentage that is less than (or more) than 100% in the *prop* column.
 
 For convenience, the total marks can also be tabulated via:
 
@@ -156,7 +156,7 @@ kable(count_points(lab2))
 ## Using labzenr at the Command Line
 
 
-You can set an alias in your `~/.bash_profile` to allow labzenr to work at the command line. We recommend:
+You can set an alias in your `~/.bash_profile` to allow `labzenr` to work at the command line. We recommend:
 
 ```bash
 alias checklab='Rscript -e "labzenr::check_mechanics()"'
