@@ -103,6 +103,18 @@ In the above example, we would want to enter "2" in the console in order to add 
 
 Anytime you switch labs and a new git author is found in your log, `labzen` will ask you about it. To view your cache of known Git users, run `labzenr::signature_ls()`:
 
+```r
+> signature_ls()
+✓ No unrecognized Git signatures found. To add signatures manually, use `labzenr::signature_add()`.
+ℹ To see the list of currently registered signatures, run `labzenr::signature_ls()`.
+# A tibble: 8 x 3
+  signature                        is_user is_regexp
+  <chr>                            <lgl>   <lgl>    
+1 John Smith <jsmith@example.com>  TRUE    FALSE    
+2 J. SMITH <jsmith@example.com>    TRUE    FALSE    
+3 Dr. Strage <strange@stat.ubc.ca> FALSE   FALSE    
+```
+
 You can also choose to manually add `regex` patterns to search for known patterns:
 
 ```{r, eval=FALSE}
