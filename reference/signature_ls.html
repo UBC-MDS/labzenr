@@ -143,13 +143,16 @@ directory.</p></td>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A tibble containing three columns. The the <code>signature</code> column
-contains character strings of the exact Git signatures (e.g. "John Smith
-<a href='mailto:jsmith@example.com'>jsmith@example.com</a>") or regular expressions (e.g. "^John S(mith|\.)").
-The <code>is_user</code> column indicates whether the signature/pattern belongs to
-the student (FALSE would denote a Git user of MDS faculty). The
-<code>is_regexp</code> column denotes if the signature column is a fixed literal or a
-regular expression.</p>
+    <p>A tibble containing three columns:</p><ol>
+<li><p>The the <code>signature</code> column contains character strings of the
+exact Git signatures (e.g. "John Smith <a href='mailto:jsmith@example.com'>jsmith@example.com</a>") or
+regular expressions (e.g. "^John S(mith|\.)").</p></li>
+<li><p>The <code>is_user</code> column indicates whether the signature/pattern belongs
+to the student (FALSE would denote a Git user of MDS faculty).</p></li>
+<li><p>The <code>is_regexp</code> column denotes if the signature column is a fixed
+literal or a regular expression.</p></li>
+</ol>
+
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># navigate to a Git repo and run:</span>
